@@ -12,4 +12,5 @@ SSH TO SERVER
 #cd qq-nginx-reverse-proxy
 
 Edit domainlist file with vim or upload it via ssh
-#php start.php
+
+php start.php
