@@ -10,7 +10,7 @@ apt-get -y install certbot python3-certbot-nginx
 
 unlink /etc/nginx/sites-enabled/default
 
-clone https://github.com/momentum100/qq-nginx-reverse-proxy
+git clone https://github.com/momentum100/qq-nginx-reverse-proxy
 
 
 SSH TO SERVER
