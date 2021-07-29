@@ -18,4 +18,4 @@ SSH TO SERVER
 
 Edit domainlist.txt (remove dummy word) file with vim or upload it via ssh
 
-php start.php
+php start.php DESTINATIONIP
