@@ -9,7 +9,7 @@ $nginx_path = "/etc/nginx/sites-enabled/reverse-proxy.conf";
 $vhost_header = file_get_contents("vhost-header.txt");
 $vhost = str_replace ("DESTINATIONIP", $argv[1], $vhost_header);
 $goodCount=0;
-
+$out="";
 
 for ($i=0; $i< count($domains); $i++) {
 	$d = trim($domains[$i]);
@@ -19,23 +19,29 @@ for ($i=0; $i< count($domains); $i++) {
 	echo "$d $i\n";
 	
 	if (gethostbyname($d) == $serverIP) {
-		
-		mkdir ("/var/www/". $d);	
-		// generate certificate
-		//
-		$cmd = "certbot certonly -n --agree-tos --no-redirect --nginx --register-unsafely-without-email -d $d -w /var/www/$d\n" ;
-		`$cmd`;
-		
-		// add domain config to $vhost
-		//
-		$tmpl = file_get_contents("vhost-template.txt");
-		$tmpl = str_replace ("DOMAIN", $d, $tmpl);
-		$tmpl = str_replace ("DESTINATIONIP", $argv[1], $tmpl);
-		
-		$vhost .= "\n\n". $tmpl;
-		$goodCount++;
 
-	}
+                @mkdir ("/var/www/". $d);
+                // generate certificate
+                //
+                $cmd = "certbot certonly -n --agree-tos --no-redirect --nginx --register-unsafely-without-email -d $d -w /var/www/$d\n" ;
+                $result = `$cmd`;
+
+                if  (!strstr($result , "fail")) {
+
+			// add domain config to $vhost
+			//
+			$tmpl = file_get_contents("vhost-template.txt");
+			$tmpl = str_replace ("DOMAIN", $d, $tmpl);
+			$tmpl = str_replace ("DESTINATIONIP", $argv[1], $tmpl);
+
+			$vhost .= "\n\n". $tmpl;
+			$goodCount++;
+
+			$out .= $d."\n";
+
+                }
+
+        }
 	else {
 		echo "Domain is not pointed to $serverIP\n";
 	}
