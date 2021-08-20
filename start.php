@@ -3,7 +3,7 @@ if (strlen($argv[1]==0)) { die ("destination ip NOT set php start.php 1.2.3.4\n"
 
 // create directories from domainlist.txt
 $domains = file ("domainlist.txt");
-$serverIP = file_get_contents("http://169.254.169.254/metadata/v1/interfaces/public/0/ipv4/address");
+$serverIP = `hostname -I | awk '{print $1}'`;
 $nginx_path = "/etc/nginx/sites-enabled/reverse-proxy.conf";
 
 $vhost_header = file_get_contents("vhost-header.txt");
