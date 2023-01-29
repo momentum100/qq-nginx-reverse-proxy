@@ -6,7 +6,7 @@ atp-get update
 
 apt-get -y install nginx php 
 
-apt-get -y install certbot python3-certbot-nginx 
+apt-get -y install python3 certbot python3-certbot-nginx 
 
 unlink /etc/nginx/sites-enabled/default
 
