@@ -2,7 +2,7 @@
 
 SERVER SETUP (UBUNTU)
 
-atp-get update
+apt-get update
 
 apt-get -y install nginx php 
 
