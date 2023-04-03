@@ -10,6 +10,9 @@ apt-get -y install python3 certbot python3-certbot-nginx
 
 unlink /etc/nginx/sites-enabled/default
 
+systemctl disable apache2.service
+
+
 git clone https://github.com/momentum100/qq-nginx-reverse-proxy
 
 
